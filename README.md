@@ -5,7 +5,7 @@
 
 在Project Settings->Editor下新增Asset Pipeline字段
 
-![image-20220601113841867](image-20220601113841867.png)
+![image-20220601113841867](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220601113841867.png)
 
 | Type                               | 描述                                                    | 设置                |
 | ---------------------------------- | ------------------------------------------------------- | ------------------- |
@@ -17,11 +17,11 @@
 
 此外在编辑器的Preferences->Asset Pipeline窗口中，设置 Import Worker Count，默认设置为系统逻辑核的25% 
 
-![image-20220601114639486](C:\Users\ianxhtian\AppData\Roaming\Typora\typora-user-images\image-20220601114639486.png)
+![image-20220601114639486](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220601114639486.png)
 
 并行导入在编辑器Log中也会有所体现
 
-![image-20220601115132496](C:\Users\ianxhtian\AppData\Roaming\Typora\typora-user-images\image-20220601115132496.png)
+![image-20220601115132496](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220601115132496.png)
 
 **注意事项**
 
@@ -74,7 +74,7 @@ public class XXXAssetPostprocessor : AssetPostprocessor
 
 1.这种方式实现了资源的统一设置，但有时同类资源也有不同的导入设置，这是需要通过不同的文件夹对不同配置需求的同类资源进行区分，或者通过资源文件名区分，这样导入工具就还可以通过对路径的管理，通过做表达式或通配符进行分类配置。并对导入资源设置做持久化，可以继承[ScriptableObject](https://docs.unity3d.com/cn/current/Manual/class-ScriptableObject.html)对象来持久化设置，也可以与第二种方法结合使用Presets来完成，Presets是从ScriptableObject继承而来。
 
-![image-20220530141849581](C:\Users\ianxhtian\AppData\Roaming\Typora\typora-user-images\image-20220530141849581.png)
+![image-20220530141849581](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220530141849581.png)
 
 2.这样就解决了在资源导入时的资源统一设置问题和同类资源不同导入设置的问题，但在编辑时可能涉及人为误修改导致打包时出现问题，如果仅在打包时重新统一资源有可能导致有些问题只在打包后才出现，所以建议使用新的接口来保证资源统一
 
@@ -109,30 +109,30 @@ Unity2018时加入的功能
 
 **缺点：**无法和后续工作流整合，只适合做资源导入设置。
 
-![image-20220530142445452](C:\Users\ianxhtian\AppData\Roaming\Typora\typora-user-images\image-20220530142445452.png)
+![image-20220530142445452](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220530142445452.png)
 
 任意资源右上角的都有Presets按钮，打开Presets界面后可以序列化存储当前资源的设置
 
-![image-20220530142624497](C:\Users\ianxhtian\AppData\Roaming\Typora\typora-user-images\image-20220530142624497.png)
+![image-20220530142624497](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220530142624497.png)
 
-![image-20220530142650421](C:\Users\ianxhtian\AppData\Roaming\Typora\typora-user-images\image-20220530142650421.png)
+![image-20220530142650421](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220530142650421.png)
 
 这样就可以很方便地应用此资源的设置到其他资源上。
 
 同样资源的导入设置也可以持久化成Presets，而且可以将Presets资源添加到Project Settings -> Preset Manager中
 
-![image-20220530143040629](C:\Users\ianxhtian\AppData\Roaming\Typora\typora-user-images\image-20220530143040629.png)
+![image-20220530143040629](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220530143040629.png)
 
 这样就可以将统一的资源设置应用到导入的新对象或新资源上
 
 在Preset Manager中可以为每一个Presets添加高级过滤搜索选项，具体支持的符号和通配符如下图：
 
-![image-20220530143256371](C:\Users\ianxhtian\AppData\Roaming\Typora\typora-user-images\image-20220530143256371.png)
+![image-20220530143256371](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220530143256371.png)
 
 对于在第1种方法中遇到的资源变化问题，也可以同样使用OnAssetsModified接口进行完善，重新进行导入设置
 只需将[Unity - Manual: Applying default presets to Assets by folder (unity3d.com)](https://docs.unity3d.com/Manual/DefaultPresetsByFolder.html)中的代码文件放到Editor文件夹下，同时删除Preset Manager中的默认预设并将Preset放到对应资产文件夹中即可。
 
-![image-20220530143842340](C:\Users\ianxhtian\AppData\Roaming\Typora\typora-user-images\image-20220530143842340.png)
+![image-20220530143842340](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220530143842340.png)
 
 如上图所示，Doors文件夹中的文件不论进行什么修改，都会自动设置为与文件夹下的DoorSound Preset一致，任何人为的修改都会被忽略
 
@@ -166,7 +166,7 @@ AssetGraph可以可视化编辑资源流，只需要添加OverWrite Import Setti
 
 也可直接右键某个资源选择**View in Import Activity Window**
 
-![image-20220601123036211](C:\Users\ianxhtian\AppData\Roaming\Typora\typora-user-images\image-20220601123036211.png)
+![image-20220601123036211](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220601123036211.png)
 
 右侧Overview中显示了拥有最多依赖项资源的排序，和导入时间最长资源的排序
 
@@ -187,7 +187,7 @@ AssetGraph可以可视化编辑资源流，只需要添加OverWrite Import Setti
 | **Produced Files / Artifacts** | 通常只有一个文件，但在编辑器使用过程中，Unity可能会生成资源导入的多个版本文件。因此可能会有多个文件的ID，并与资源的GUID不同 |
 | **Dependencies**               | 控制资产状态的 Editor 和项目特定变量列表，如果发生更改，将触发资产的重新导入 |
 
-![image-20220601124829126](C:\Users\ianxhtian\AppData\Roaming\Typora\typora-user-images\image-20220601124829126.png)
+![image-20220601124829126](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220601124829126.png)
 
 ## Unity Analysis 新功能
 
@@ -199,9 +199,9 @@ AssetGraph可以可视化编辑资源流，只需要添加OverWrite Import Setti
 
 在[Profiler Module Editor](https://docs.unity.cn/cn/2021.3/Manual/profiler-module-editor.html)中，可自定义模块并将模块保存并添加到 Unity Profiler 窗口
 
-![image-20220601102049455](C:\Users\ianxhtian\AppData\Roaming\Typora\typora-user-images\image-20220601102049455.png)
+![image-20220601102049455](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220601102049455.png)
 
-![image-20220601102133955](C:\Users\ianxhtian\AppData\Roaming\Typora\typora-user-images\image-20220601102133955.png)
+![image-20220601102133955](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220601102133955.png)
 
 同时也可以使用代码添加：
 
@@ -302,19 +302,19 @@ public class ProfilerMarkerExample
 
 在菜单**Windows->Analysis**中启动
 
-![image-20220601120805887](C:\Users\ianxhtian\AppData\Roaming\Typora\typora-user-images\image-20220601120805887.png)
+![image-20220601120805887](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220601120805887.png)
 
 打开时只有**Load**按钮可用，该按钮用于读取先前保存的**Profile Analyzer**数据文件，以**.pdata**结尾，与**Profiler**保存的**.data**不同
 
  如需读取**Profiler**的数据，则需要打开**Profiler**窗口捕获或加载数据，保持**Profiler**窗口开启并点击**Profile Analyzer**的**PullData**按钮来拉取**Profiler**数据
 
-![image-20220601121350836](C:\Users\ianxhtian\AppData\Roaming\Typora\typora-user-images\image-20220601121350836.png)
+![image-20220601121350836](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220601121350836.png)
 
 通过点击Select按钮可以选择查看不同的线程下该帧涉及的线程函数调用情况，可用于分析某个线程的性能开销
 
 
 
-![image-20220601121625252](C:\Users\ianxhtian\AppData\Roaming\Typora\typora-user-images\image-20220601121625252.png)
+![image-20220601121625252](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220601121625252.png)
 
 窗口右侧显示帧的统计信息，线程统计信息和标签统计信息，可以统计最大最小帧耗时，平均帧耗时，四分位数等信息
 
@@ -324,7 +324,7 @@ public class ProfilerMarkerExample
 
 该功能不仅可以对比同一份数据文件中的不同帧，还可以再**Pull**一份数据进行两个数据文件中的帧数据比较，可用于对比优化迭代前后差异
 
-![image-20220601122016009](C:\Users\ianxhtian\AppData\Roaming\Typora\typora-user-images\image-20220601122016009.png)
+![image-20220601122016009](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220601122016009.png)
 
 其次，还可以通过框选进行多段进行阶段性性能比较，还可以通过**Depth Slice**过滤函数调用层数进行比较
 
@@ -336,7 +336,7 @@ public class ProfilerMarkerExample
 
 此外，Code Coverage 包提供了 Coverage Recording 功能，使用此功能可以针对手动测试或在项目中没有自动测试时按需捕获覆盖率数据。
 
-![image-20220601141829821](C:\Users\ianxhtian\AppData\Roaming\Typora\typora-user-images\image-20220601141829821.png)
+![image-20220601141829821](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220601141829821.png)
 
 ### Rendering Debugger
 
@@ -346,7 +346,7 @@ public class ProfilerMarkerExample
 
 在 **Window-> Analysis-> Rendering Debugger **开启窗口
 
-![image-20220601134016564](C:\Users\ianxhtian\AppData\Roaming\Typora\typora-user-images\image-20220601134016564.png)
+![image-20220601134016564](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220601134016564.png)
 
 #### Frequently Used
 
@@ -356,11 +356,11 @@ public class ProfilerMarkerExample
 
 可以可视化不同材质的属性以及光照复杂度和Gameobject的定点属性
 
-![image-20220601134621797](C:\Users\ianxhtian\AppData\Roaming\Typora\typora-user-images\image-20220601134621797.png)
+![image-20220601134621797](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220601134621797.png)
 
 同时可以验证可视化材质属性在不同类型材质设置时相关数值的变化范围
 
-![image-20220601134837725](C:\Users\ianxhtian\AppData\Roaming\Typora\typora-user-images\image-20220601134837725.png)
+![image-20220601134837725](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220601134837725.png)
 
 
 
@@ -372,7 +372,7 @@ public class ProfilerMarkerExample
 
 **Lighting Features **部分可以指定光照特征，用于调试特定的最终照明结果
 
-![image-20220601135100148](C:\Users\ianxhtian\AppData\Roaming\Typora\typora-user-images\image-20220601135100148.png)
+![image-20220601135100148](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220601135100148.png)
 
 
 
@@ -391,7 +391,7 @@ public class ProfilerMarkerExample
 | Overdraw                   | 指定是否开启过度绘制调试图                    |
 | Pixel Validation           | 用于验证像素值范围                            |
 
-![image-20220601135429832](C:\Users\ianxhtian\AppData\Roaming\Typora\typora-user-images\image-20220601135429832.png)
+![image-20220601135429832](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220601135429832.png)
 
 #### Runtime运行
 
@@ -411,7 +411,7 @@ public class ProfilerMarkerExample
 
 ​			3.若想在Runtime下运行，需在构建时勾选Development Build选项，并确保Strip Debug Variants**不要勾选**
 
-![image-20220601140919177](C:\Users\ianxhtian\AppData\Roaming\Typora\typora-user-images\image-20220601140919177.png)
+![image-20220601140919177](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220601140919177.png)
 
 
 
