@@ -5,7 +5,7 @@
 
 在Project Settings->Editor下新增Asset Pipeline字段
 
-![image-20220601113841867](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220601113841867.png)
+![image-20220601113841867](https://github.com/tianxuhui1999/Unity_Feature-Tools/blob/main/ReadmeImages/image-20220601113841867.png)
 
 | Type                               | 描述                                                    | 设置                |
 | ---------------------------------- | ------------------------------------------------------- | ------------------- |
@@ -17,11 +17,11 @@
 
 此外在编辑器的Preferences->Asset Pipeline窗口中，设置 Import Worker Count，默认设置为系统逻辑核的25% 
 
-![image-20220601114639486](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220601114639486.png)
+![image-20220601114639486](https://github.com/tianxuhui1999/Unity_Feature-Tools/blob/main/ReadmeImages/image-20220601114639486.png)
 
 并行导入在编辑器Log中也会有所体现
 
-![image-20220601115132496](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220601115132496.png)
+![image-20220601115132496](https://github.com/tianxuhui1999/Unity_Feature-Tools/blob/main/ReadmeImages/image-20220601115132496.png)
 
 **注意事项**
 
@@ -74,7 +74,7 @@ public class XXXAssetPostprocessor : AssetPostprocessor
 
 1.这种方式实现了资源的统一设置，但有时同类资源也有不同的导入设置，这是需要通过不同的文件夹对不同配置需求的同类资源进行区分，或者通过资源文件名区分，这样导入工具就还可以通过对路径的管理，通过做表达式或通配符进行分类配置。并对导入资源设置做持久化，可以继承[ScriptableObject](https://docs.unity3d.com/cn/current/Manual/class-ScriptableObject.html)对象来持久化设置，也可以与第二种方法结合使用Presets来完成，Presets是从ScriptableObject继承而来。
 
-![image-20220530141849581](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220530141849581.png)
+![image-20220530141849581](https://github.com/tianxuhui1999/Unity_Feature-Tools/blob/main/ReadmeImages/image-20220530141849581.png)
 
 2.这样就解决了在资源导入时的资源统一设置问题和同类资源不同导入设置的问题，但在编辑时可能涉及人为误修改导致打包时出现问题，如果仅在打包时重新统一资源有可能导致有些问题只在打包后才出现，所以建议使用新的接口来保证资源统一
 
