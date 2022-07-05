@@ -414,4 +414,125 @@ public class ProfilerMarkerExample
 ![image-20220601140919177](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220601140919177.png)
 
 
+# XCode Frame Capture工具
 
+**Xcode Frame Capture**工具运行在**matal API**下，可以用于分析渲染流程的瓶颈与问题，是优化移动平台渲染时非常直观的工具
+
+## 前置设置
+
+### 1.Unity设置
+
+#### 打包设置
+
+![image-20220609143949651](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220609143949651.png)
+
+将**Build Setting**中的**Development Build**打开
+
+### 2.Xcode设置
+
+#### 开启功能
+
+![image-20220609144458500](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220609144458500.png)
+
+在工具栏**Edit Scheme->Run**页面中将**GPU Frame Capture**改为**Metal**（**不要使用Automatically Enabled**）
+
+并勾选 **Profile GPU Trace after capture**
+
+**详见**[Enabling Frame Capture | Apple Developer Documentation](https://developer.apple.com/documentation/metal/debugging_tools/enabling_frame_capture?preferredLanguage=occ)
+
+#### 设置设备信息
+
+打开项目设置的General页面设置设备信息
+
+![image-20220609145944317](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220609145944317.png)
+
+#### 添加证书
+
+在Xcode->Preferences->Accounts页面点击左下角+登陆Apple ID并下载证书
+
+![image-20220609150425218](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220609150425218.png)
+
+在项目设置的Signing & Capabilities页面中勾选Automatically Manage signing添加签字并选择刚添加的账号
+
+若爆红说明该账号不支持设备的IPA打包，需要关闭下面的In-App Purchase
+
+## 工具介绍
+
+连接设备到机器上并运行，等待打包并安装后会自动运行，点击切换到show debugg navigator页面
+
+<img src="https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220609151404262.png" alt="image-20220609151404262"  />
+
+​                  <img src="https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220609154000808.png" alt="image-20220609154000808" style="zoom: 100%;" /><img src="https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220609154123173.png" alt="image-20220609154123173" style="zoom: 100%;" />
+
+
+
+**左侧的标签页中：**
+
+| 名称          | 内容描述                                                     |
+| ------------- | ------------------------------------------------------------ |
+| CPU           | 显示当前应用程序下CPU负载情况，以及主线程、各个工作线程和后台线程的负载情况，可以方便地了解到当前应用程序开启了哪些线程及各线程的情况 |
+| Memory        | 显示当前系统内存情况和当前应用程序占用的内存情况             |
+| Energy Impact | 显示当前应用程序下的耗电量情况，并分类显示各部分的功耗情况   |
+| Disk          | 显示存储器读写情况                                           |
+| Network       | 显示网络读写情况                                             |
+| FPS           | 显示当下GPU的概况，以及设备整体顶点着色器，片元着色器的负载情况 |
+
+
+
+点击按钮，并等待**Capture**
+
+![image-20220609154815978](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220609154815978.png)
+
+当左侧出现**Capture GPU Workload**代表捕获完成
+
+
+
+**1.左侧Summary标签页显示了当前程序GPU端的整体状况，包括性能、显存、以及可能与显存、带宽、性能有关的问题，具体的详细信息可以切换到对应的insights查看。**
+
+![image-20220609154625484](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220609154625484.png)
+
+
+
+**2.Counters标签页面是类似Unity Profiler的性能分析可视化工具，并可以显示如Vertices，Vertex Shader Time等Unity Profiler没有的详细信息，并可以搭配下方的渲染队列进行快速定位跳转**
+
+![image-20220609155937580](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220609155937580.png)
+
+
+
+**3.Memory标签页面显示各部分内存占用情况，并可视化展示各资源占用的部分，可以用来定位优化过大的资源、贴图等**
+
+![image-20220609162620922](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220609162620922.png)
+
+
+
+**4.渲染指令队列，可以通过下方的标签按钮进行draw call指令的过滤防止过多无关的draw call指令扰乱分析，然后可以像Profiler的操作一样展开队列并逐个查看该部分使用的相关贴图资源，draw call等信息，且该工具会绘制整个渲染流程图，可以方便定位到不容易发现的渲染问题，后面有紫色三角形叹号标志的为系统检查出的渲染问题，可以重点关注**
+
+![image-20220609161539831](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220609161539831.png)
+
+
+
+
+
+**当展开单个draw call时，可以查看该draw call的buffer、相关资源、管线状态、性能等信息，且当前调试的设备也会显示对应的draw call画面**
+
+![image-20220609162320166](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220609162320166.png)
+
+![image-20220609161845896](https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220609161845896.png)
+
+<img src="https://github.com/tianxuhui1999/Unity_Feature-Tools/tree/main/ReadmeImages/image-20220609162035136.png" alt="image-20220609162035136" style="zoom: 33%;" />
+
+
+
+## **拓展应用**
+
+### **自定义抓取范围**
+
+通过调用 MTLCaptureManager 方法 newCaptureScopeWithDevice: 或 newCaptureScopeWithCommandQueue:
+
+详见：[Creating a Custom Capture Scope | Apple Developer Documentation](https://developer.apple.com/documentation/metal/debugging_tools/creating_a_custom_capture_scope?language=objc)
+
+### 将抓取的GPU指令数据存储为文件
+
+单次Xcode Frame Debugger的数据可以存储为文件，以便以后的分析
+
+详见：[Capturing GPU Command Data Programmatically | Apple Developer Documentation](https://developer.apple.com/documentation/metal/debugging_tools/capturing_gpu_command_data_programmatically?language=objc)
